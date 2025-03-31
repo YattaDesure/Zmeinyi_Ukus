@@ -1,0 +1,66 @@
+import random
+
+#1
+
+n = int(input("n: "))
+list_random = [random.randint(0, 100) for _ in range(n)]
+print
+for index, value in enumerate(list_random):
+    print(f"Индекс: {index}, Значение: {value}")
+
+#2
+
+n = int(input("n: "))
+list = []
+for i in range(n):
+    element = input(f"Введите элемент {i+1}: ")
+    list.append(element)
+print("list :", ' '.join(map(str, list)))
+
+#3
+for item in list_random:
+    if isinstance(item, int) and item % 2 == 0:
+        list.append(item)
+print("list:")
+for item in list:
+    print(item, end=" ")
+print()
+
+#4
+
+sorted_list = sorted(list_random, reverse=True)
+print("sorted list:", sorted_list)
+
+#5
+
+num = int(input("Number for delete: "))
+count = list_random.count(num)
+print(f"Amount of repeating nums: {count}")
+random_list = [i for i in list_random if i != num]
+print("List after clear:", random_list)
+
+#6
+
+n_insert = int(input("Amount of elements? "))
+for _ in range(n_insert):
+    index = int(input("index: "))
+    value = input("value: ")
+    list.insert(index, value)
+print("list after adding:", list)
+
+#7
+
+books = {}
+books = int(input("Amount of books: "))
+for i in range(books):
+    code = input(f"Code of book {i+1}: ")
+    title = input(f"Book title {i+1}: ")
+    books[code] = title
+
+#8
+
+print("Books keys:", list(books.keys()))
+print("Parametr:", list(books.values()))
+
+search_key = input("Key for search: ")
+print(f"key value '{search_key}':", books.get(search_key, "can't find"))
