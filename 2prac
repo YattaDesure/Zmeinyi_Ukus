@@ -1,1 +1,93 @@
+import math
 
+# Ввод значения x
+x = float(input("Введите значение x: "))
+
+# Вычисление y(x)
+if x < -10:
+    y = math.pi * x**2
+elif -10 <= x < -5:
+    y = x**4
+elif -5 <= x < 10:
+    y = math.e * abs(x)
+else:
+    y = 1 / math.sin(math.sqrt(x))
+
+# Округление до трех знаков после запятой
+y_rounded = round(y, 3)
+print("Значение функции y(x):", y_rounded)
+
+
+# Ввод трех чисел
+a = float(input("Введите первое число: "))
+b = float(input("Введите второе число: "))
+c = float(input("Введите третье число: "))
+
+# Определяем число, которое находится между двумя другими
+middle = a if (b < a < c) or (c < a < b) else (b if (a < b < c) or (c < b < a) else c)
+print("Число, находящееся между двумя другими:", middle)
+
+
+# Ввод года и месяца
+year = int(input("Введите год: "))
+month = int(input("Введите номер месяца (1-12): "))
+
+# Проверка на високосный год
+is_leap = (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0)
+
+# Определение количества дней в месяце
+days_in_month = (
+    29 if month == 2 and is_leap else
+    28 if month == 2 else
+    30 if month in (4, 6, 9, 11) else
+    31
+)
+
+print("Количество дней в месяце:", days_in_month)
+
+
+# Ввод трех сторон
+a = float(input("Введите первую сторону: "))
+b = float(input("Введите вторую сторону: "))
+c = float(input("Введите третью сторону: "))
+
+# Проверка на возможность построения треугольника
+can_form_triangle = a + b > c and a + c > b and b + c > a
+if can_form_triangle:
+    # Определение типа треугольника
+    if a == b == c:
+        triangle_type = "равносторонний"
+    elif a**2 + b**2 == c**2 or b**2 + c**2 == a**2 or a**2 + c**2 == b**2:
+        triangle_type = "прямоугольный"
+    else:
+        triangle_type = "разносторонний" if a != b and b != c and a != c else "равнобедренный"
+    
+    print("Треугольник можно построить. Тип треугольника:", triangle_type)
+else:
+    print("Треугольник нельзя построить.")
+
+
+# Ввод двух целых чисел
+a = int(input("Введите первое целое число: "))
+b = int(input("Введите второе целое число: "))
+
+# Ввод битовой операции
+operation = input("Введите тип операции (AND, OR, XOR, <<, >>): ")
+
+# Выполнение операции
+if operation == "AND":
+    result = a & b
+elif operation == "OR":
+    result = a | b
+elif operation == "XOR":
+    result = a ^ b
+elif operation == "<<":
+    result = a << b
+elif operation == ">>":
+    result = a >> b
+else:
+    result = None
+    print("Неверная операция")
+
+if result is not None:
+    print(f"Результат операции {operation}: {result} (в двоичном виде: {bin(result)[2:]})")
