@@ -1,87 +1,90 @@
-#Task1
-string = input("Введите строку: ")
+#1
+'''
+a = input("type string:")
+print(a * 5)
+for index, char in enumerate(a):
+    print("index = ", index , ",Value = ", char)
 
-print(string * 5)
+print("lenght = ",len(a))
 
-print("Длина строки:", len(string))
-for i, char in enumerate(string):
-    print(f"Индекс: {i}, Символ: {char}")
+c = a[::2]
+for index, char in enumerate(c):
+    print("index", index *2 , "value", char)
+'''
+#2
+'''
+a = input("type string:")
+b = int(input("type int 1:"))
+c = int(input("type int 2:"))
 
-print("Каждый второй символ:")
-for i in range(1, len(string), 2):
-    print(f"Позиция: {i+1}, Символ: {string[i]}")
+a_cut = a[b:c]
+for index, char in enumerate(a_cut):
+    print("index", index , "value", char)
+'''
+#3
+'''
+a = input("type string:")
+print(a)
+def  replace_for_first_and_last(a):
+    length = len(a)
 
-#Task2
-string = input("Введите строку: ")
-start = int(input("Введите начальную позицию: "))
-end = int(input("Введите конечную позицию: "))
-
-print("Символы в диапазоне:", string[start-1:end])
-
-#Task3
-string = input("Введите строку: ")
-if len(string) > 1:
-    string = "#" + string[1:-1] + "#"
-    print("Измененная строка:", string)
-elif len(string) == 1:
-    string = "#"
-    print("Измененная строка:", string)
-else:
-    print("Строка пуста.")
-
-#Task4
-string = input("Введите строку: ")
-
-if string.isdigit():
-    print("Строка состоит только из цифр")
-elif string.isalpha():
-    print("Строка состоит только из букв")
-    if string.islower():
-        print("Строка состоит только из строчных букв")
-    elif string.isupper():
-        print("Строка состоит только из прописных букв")
+    if length <= 1:
+        return "##"
     else:
-        print("Строка содержит буквы в разных регистрах")
-elif string.isalnum():
-    print("Строка состоит только из цифр и букв")
-else:
-    print("Строка содержит другие символы")
+        a1 = "#" + a[1:-1] + "#"
+        return a1
+print(replace_for_first_and_last(a))
+'''
+#4
+'''
+a = input("type string:")
+print(f"'{a}'.isdigit():{a.isdigit()}")
+print(f"'{a}'.isalpha():{a.isalpha()}")
+print(f"'{a}'.isalnum():{a.isalnum()}")
+if (a.isalpha() != False):
+    print(f"'{a}'.isupper():{a.isupper()}")
+    print(f"'{a}'.islower():{a.islower()}")
+'''
+#5
+'''
+a = input("type string:")
 
-#Task5
-string = input("Введите строку: ")
-words = string.split()
-new_string = ",".join(words)
-print("Объединенная строка:", new_string)
-
-#Task6
-string1 = input("Введите первую строку: ")
-string2 = input("Введите вторую строку: ")
+sentence = ','.join(a.split())
+print(sentence)
+'''
+#6
+'''
+a = input("type string:")
+b = input("type  second string:")
 
 count = 0
 positions = []
 start = 0
 while True:
-    index = string2.find(string1, start)
+    index = b.find(a, start)
     if index == -1:
         break
     count += 1
     positions.append(index)
     start = index + 1
 
-print(f"Строка '{string1}' встречается в строке '{string2}' {count} раз(а)")
+print(f"string '{a}' repeats in string '{b}' {count} time(s)")
 if count > 0:
-    print("Позиции:", positions)
-
-#Task7
-word = input("Введите слово: ")
+    print("Positions:", positions)
+'''
+#7
+'''
+word = input("Type word: ")
 word = word.lower()
 if word == word[::-1]:
-    print("Слово является палиндромом")
+    print("it's palindrom")
 else:
-    print("Слово не является палиндромом")
-
-#Task8
-string = input("Введите строку с двойными пробелами: ")
+    print("it isn't palindrom")
+'''
+#8
+'''
+string = input("type string:")
 while "  " in string:
     string = string.replace("  ", " ")
-print("Строка без двойных пробелов:", string)
+print("after:", string)
+'''
