@@ -1,57 +1,57 @@
 import math
 
-#Task1
+#1
 try:
-    a = float(input("Введите число a: "))
-    b = float(input("Введите число b: "))
+    a = float(input("input a: "))
+    b = float(input("input b: "))
     result = a / b
-    print("Результат деления: ", result)
+    print("Result: ", result)
 except ZeroDivisionError:
-    print("Деление на 0")
+    print("Division on  0")
 except Exception as e:
-    print(f"Произошла ошибка: {e}")
+    print(f"Error: {e}")
 
-#Task2
-a = float(input("Введите число a: "))
+#2
+a = float(input("input a: "))
 while True:
     try:
-        b = float(input("Введите число b: "))
+        b = float(input("input b: "))
         if b == 0:
-            print("0 вводить нельзя")
+            print("0 is wrong")
         else:
             break 
     except ValueError:
-        print("Введите число")
+        print("input number")
     except Exception as e:
-        print(f"Произошла ошибка: {e}")
+        print(f"Error: {e}")
 try:
     result = a / b
-    print("Результат деления:", result)
+    print("Result Division:", result)
 except NameError:
     pass
 except Exception as e:
-    print(f"Произошла ошибка при вычислении результата: {e}")
+    print(f"Error: {e}")
 
 
 
-#Task3-4
+#3-4
 try:
-    x = float(input("Введите число x: "))
-    y = float(input("Введите число y: "))
-    z = float(input("Введите число z: "))
+    x = float(input("input number x: "))
+    y = float(input("input number y: "))
+    z = float(input("input number z: "))
 
     numerator = x + y + z
     denominator = (x - y + z) ** 2
 
     if denominator == 0:
-        raise ZeroDivisionError("Деление на ноль")
+        raise ZeroDivisionError("Division on  0")
 
     result = math.sqrt(numerator) / denominator
-    print("Результат:", result)
+    print("Result:", result)
 
 except ValueError as e:
-    print(f"Ошибка: {e}")
+    print(f"Error: {e}")
 except ZeroDivisionError as e:
-    print(f"Ошибка: {e}")
+    print(f"Error: {e}")
 except Exception as e:
-    print(f"Произошла непредвиденная ошибка: {e}")
+    print(f"Fatal Error: {e}")
