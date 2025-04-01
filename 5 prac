@@ -1,0 +1,87 @@
+#Task1
+string = input("Введите строку: ")
+
+print(string * 5)
+
+print("Длина строки:", len(string))
+for i, char in enumerate(string):
+    print(f"Индекс: {i}, Символ: {char}")
+
+print("Каждый второй символ:")
+for i in range(1, len(string), 2):
+    print(f"Позиция: {i+1}, Символ: {string[i]}")
+
+#Task2
+string = input("Введите строку: ")
+start = int(input("Введите начальную позицию: "))
+end = int(input("Введите конечную позицию: "))
+
+print("Символы в диапазоне:", string[start-1:end])
+
+#Task3
+string = input("Введите строку: ")
+if len(string) > 1:
+    string = "#" + string[1:-1] + "#"
+    print("Измененная строка:", string)
+elif len(string) == 1:
+    string = "#"
+    print("Измененная строка:", string)
+else:
+    print("Строка пуста.")
+
+#Task4
+string = input("Введите строку: ")
+
+if string.isdigit():
+    print("Строка состоит только из цифр")
+elif string.isalpha():
+    print("Строка состоит только из букв")
+    if string.islower():
+        print("Строка состоит только из строчных букв")
+    elif string.isupper():
+        print("Строка состоит только из прописных букв")
+    else:
+        print("Строка содержит буквы в разных регистрах")
+elif string.isalnum():
+    print("Строка состоит только из цифр и букв")
+else:
+    print("Строка содержит другие символы")
+
+#Task5
+string = input("Введите строку: ")
+words = string.split()
+new_string = ",".join(words)
+print("Объединенная строка:", new_string)
+
+#Task6
+string1 = input("Введите первую строку: ")
+string2 = input("Введите вторую строку: ")
+
+count = 0
+positions = []
+start = 0
+while True:
+    index = string2.find(string1, start)
+    if index == -1:
+        break
+    count += 1
+    positions.append(index)
+    start = index + 1
+
+print(f"Строка '{string1}' встречается в строке '{string2}' {count} раз(а)")
+if count > 0:
+    print("Позиции:", positions)
+
+#Task7
+word = input("Введите слово: ")
+word = word.lower()
+if word == word[::-1]:
+    print("Слово является палиндромом")
+else:
+    print("Слово не является палиндромом")
+
+#Task8
+string = input("Введите строку с двойными пробелами: ")
+while "  " in string:
+    string = string.replace("  ", " ")
+print("Строка без двойных пробелов:", string)
