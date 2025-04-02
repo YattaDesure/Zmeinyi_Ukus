@@ -3,7 +3,7 @@
 
 def hello(name: str = None) -> str:
     """
-    Выводит приветствие.
+    fun greeting.
 
     name - имя пользователя (default: None)
     Если имя не указано, возвращает "Hello, World".
@@ -14,13 +14,13 @@ def hello(name: str = None) -> str:
 
 def arithmetic(a: float, b: float, operation: str) -> float:
     """
-    Выполняет арифметическую операцию над двумя числами.
+    Do arif operation with two nums.
 
-    a - первое число
-    b - второе число
-    operation - операция, которую нужно выполнить (+, -, *, /)
+    a - first value
+    b - second value
+    operation - operation, for done (+, -, *, /)
 
-    Возвращает результат операции или сообщение об ошибке.
+    returns 
     """
     if operation == '+':
         return a + b
@@ -32,17 +32,17 @@ def arithmetic(a: float, b: float, operation: str) -> float:
         if b != 0:
             return a / b
         else:
-            return "Деление на ноль невозможно."
+            return "Can't divide in 0."
     else:
-        return "Неизвестная операция"
+        return "Wrong operation"
 
 def square(side: float) -> tuple:
     """
-    Возвращает периметр, площадь и диагональ квадрата.
+    returns P, S и a of square.
 
-    side - длина стороны квадрата
+    side - length of square
 
-    Возвращает кортеж с тремя значениями: периметр, площадь и диагональ.
+    returns { } with 3 values: P, S и diagonal.
     """
     perimeter = 4 * side
     area = side ** 2
@@ -51,31 +51,31 @@ def square(side: float) -> tuple:
 
 def season(month: int) -> str:
     """
-    Возвращает время года по номеру месяца.
+    Returns time of year with number of month
 
-    month - номер месяца (от 1 до 12)
+    month - number of month (от 1 до 12)
 
-    Возвращает строку с названием времени года или сообщение об ошибке.
+    Returns string with name of year || returns error.
     """
     if month in [12, 1, 2]:
-        return "зима"
+        return "winter"
     elif month in [3, 4, 5]:
-        return "весна"
+        return "spring"
     elif month in [6, 7, 8]:
-        return "лето"
+        return "summer"
     elif month in [9, 10, 11]:
-        return "осень"
+        return "autumn"
     else:
-        return "Некорректный номер месяца"
+        return "Wrong month number"
 
 def bank(a: float, years: int) -> float:
     """
-    Вычисляет сумму на счету пользователя с учетом 10% годовых.
+    Returns 10% of sum .
 
-    a - сумма вклада
-    years - количество лет
+    a - summ of investition
+    years - amount years
 
-    Возвращает итоговую сумму на счету.
+    Returns of summ on balance.
     """
     for _ in range(years):
         a *= 1.10
@@ -83,8 +83,8 @@ def bank(a: float, years: int) -> float:
 
 # Тестирование функций
 if __name__ == "__main__":
-    print(hello("Alice"))  # Пример вызова функции hello
-    print(arithmetic(10, 5, '+'))  # Пример вызова функции arithmetic
-    print(square(4))  # Пример вызова функции square
-    print(season(3))  # Пример вызова функции season
-    print(bank(1000, 5))  # Пример вызова функции bank
+    print(hello("Ivan"))  # Пример вызова функции hello
+    print(arithmetic(20, 5, '/'))  # Пример вызова функции arithmetic
+    print(square(1))  # Пример вызова функции square
+    print(season(12))  # Пример вызова функции season
+    print(bank(10000, 5))  # Пример вызова функции bank
