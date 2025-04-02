@@ -1,26 +1,21 @@
-def power(a: 'число, которое нужно возвести в степень' = 2, x: 'степень, в которую нужно возвести число' = 0) -> float:
-    """
-    Возвращает число a, возведенное в степень x.
-    """
+def power(a: 'number for **' = 2, x: '**' = 0) -> float:
+    
+    #return  a,  in **  x.
+   
     return a ** x
 
-def factorial(n: 'число, факториал которого нужно вычислить') -> int:
-    """
-    Рекурсивно вычисляет факториал числа n.
-    Возвращает -1, если входные данные некорректны.
-    """
+def factorial(n: 'num for factorial') -> int:
+
     if not isinstance(n, int) or n < 0:
         return -1
     if n == 0:
         return 1
     return n * factorial(n - 1)
 
-def statistics(*numbers: 'список чисел для вычисления статистик') -> None:
-    """
-    Выводит сумму, среднее, максимум, минимум и количество всех чисел.
-    """
+def statistics(*numbers: 'list of nums for statistic') -> None:
+
     if not numbers:
-        print("Нет чисел для вычисления статистик.")
+        print("No nums.")
         return
 
     total_sum = sum(numbers)
@@ -29,23 +24,20 @@ def statistics(*numbers: 'список чисел для вычисления с
     min_value = min(numbers)
     count = len(numbers)
 
-    print(f"Сумма: {total_sum}")
-    print(f"Среднее: {average}")
-    print(f"Максимум: {max_value}")
-    print(f"Минимум: {min_value}")
-    print(f"Количество: {count}")
+    print(f"Summ: {total_sum}")
+    print(f"Middle: {average}")
+    print(f"Max: {max_value}")
+    print(f"Min: {min_value}")
+    print(f"Amount: {count}")
 
-def multiply_list(numbers: 'список чисел', multiplier: 'множитель' = -1) -> list:
-    """
-    Умножает каждый элемент списка на заданное число.
-    Если множитель не указан, умножает на -1.
-    """
+def multiply_list(numbers: 'list of nums', multiplier: 'supplier' = -1) -> list:
+
     return [number * multiplier for number in numbers]
 
 calculate_y = lambda a, x, b: a * x + b
 
-print("Тестирование функции power:", power(2, 3))  # 8
-print("Тестирование функции factorial:", factorial(5))  # 120
-statistics(1, 2, 3, 4, 5)  # Выводит статистику
-print("Тестирование функции multiply_list:", multiply_list([1, 2, 3], 2))  # [2, 4, 6]
-print("Тестирование лямбда-функции calculate_y:", calculate_y(2, 3, 1))  # 7
+print("Testing fun power:", power(2, 4))  # 16
+print("Testing fun factorial:", factorial(5))  # 120
+statistics(1, 2, 3, 4, 5, 6, 7)  
+print("Testing fun multiply_list:", multiply_list([1, 2, 3], 2))  # [2, 4, 6]
+print("Testing lyambda-fun calculate_y:", calculate_y(2, 3, 1))  # 7
