@@ -1,24 +1,24 @@
 class Author:
     def __init__(self, full_name, country):
         """
-        Инициализация объекта Автор.
-        full_name - ФИО автора
-        country - страна проживания автора
+        Initialization Author.
+        full_name - fullname 
+        country - where he was born
         """
         self.full_name = full_name
         self.country = country
 
     def author_info(self):
         """
-        Выводит информацию об авторе на экран.
+        Author details
         """
         print(f"Author: {self.full_name}, Country: {self.country}")
 
 class Book:
     def __init__(self, book_title):
         """
-        Инициализация объекта Книга.
-        book_title - название книги
+        Initialization onject Book.
+        book_title - name of book
         """
         self.book_title = book_title
         self.__content = []
@@ -26,26 +26,26 @@ class Book:
 
     def __del__(self):
         """
-        Деструктор, выводит сообщение при удалении объекта Книга.
+        Destruction, return massage about deleting.
         """
         print(f"Book {self.book_title} deleted")
 
     def add_piece(self, title):
         """
-        Добавляет произведение в содержание книги.
-        title - название произведения
+        Adds piece in book.
+        title - name of book
         """
         self.__content.append(title)
 
     def number_of_pieces(self):
         """
-        Возвращает количество произведений в книге.
+        Return pieces in book.
         """
         return len(self.__content)
 
     def book_info(self):
         """
-        Выводит информацию о книге на экран.
+        Return book info
         """
         print(f"Book: {self.book_title}")
         print("Content:")
@@ -55,42 +55,42 @@ class Book:
 class AuthorBook(Author, Book):
     def __init__(self, full_name, country, book_title):
         """
-        Инициализация объекта КнигаАвтора.
-        full_name - ФИО автора
-        country - страна проживания автора
-        book_title - название книги
+        Initialization object BookAuthor.
+        full_name - fullname 
+        country - where he was born
+        book_title - title book
         """
         Author.__init__(self, full_name, country)
         Book.__init__(self, book_title)
 
     def author_and_book_info(self):
         """
-        Выводит информацию о книге и авторе на экран.
+        author_and_book_info
         """
         self.author_info()
         self.book_info()
 
 def main():
-    # Создание списка авторов
+    # making list
     authors = []
-    n = int(input("Введите количество авторов: "))
+    n = int(input("Type amount of authors: "))
     for i in range(n):
-        full_name = input(f"Введите ФИО автора {i+1}: ")
-        country = input(f"Введите страну автора {i+1}: ")
+        full_name = input(f"Type FullName {i+1}: ")
+        country = input(f"Type country {i+1}: ")
         authors.append(Author(full_name, country))
 
-    # Вывод всех авторов
-    print("\nСписок всех авторов:")
+    # return of authors
+    print("\nList of authors:")
     for author in authors:
         author.author_info()
 
-    # Вывод только русских авторов
-    print("\nСписок русских авторов:")
+    # Only Russians
+    print("\nList of russians authors:")
     for author in authors:
-        if author.country.lower() == "россия":
+        if author.country.lower() == "Россия":
             author.author_info()
 
-    # Пример использования класса AuthorBook
+    #  AuthorBook
     author_book = AuthorBook("Лев Толстой", "Россия", "Война и мир")
     author_book.add_piece("Часть 1")
     author_book.add_piece("Часть 2")
