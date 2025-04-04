@@ -1,0 +1,193 @@
+5.1
+import tkinter as tk
+
+def login():
+    username = entry_username.get()
+    password = entry_password.get()
+    remember = check_remember.get()
+    
+    print(f"Логин: {username}")
+    print(f"Пароль: {password}")
+    print(f"Запомнить: {'Да' if remember else 'Нет'}")
+
+root = tk.Tk()
+root.title("Форма авторизации")
+root.geometry("200x300")
+
+# Элементы формы
+label_username = tk.Label(root, text="Логин:")
+label_username.pack(pady=(20, 0))
+
+entry_username = tk.Entry(root)
+entry_username.pack(pady=5)
+
+label_password = tk.Label(root, text="Пароль:")
+label_password.pack(pady=(10, 0))
+
+entry_password = tk.Entry(root, show="*")
+entry_password.pack(pady=5)
+
+check_remember = tk.BooleanVar()
+checkbox_remember = tk.Checkbutton(root, text="Запомнить пароль", variable=check_remember)
+checkbox_remember.pack(pady=10)
+
+button_login = tk.Button(root, text="Авторизоваться", command=login)
+button_login.pack(pady=20)
+
+root.mainloop()
+
+5.2
+import tkinter as tk
+from tkinter import ttk
+
+def register():
+    username = entry_username.get()
+    password = entry_password.get()
+    about = text_about.get("1.0", "end-1c")
+    gender = gender_var.get()
+    continent = combo_continent.get()
+    
+    print(f"Логин: {username}")
+    print(f"Пароль: {password}")
+    print(f"О себе: {about}")
+    print(f"Пол: {gender}")
+    print(f"Материк: {continent}")
+
+root = tk.Tk()
+root.title("Форма регистрации")
+root.configure(bg="#f0f0f0")
+
+# Элементы формы
+label_username = tk.Label(root, text="Логин:", bg="#f0f0f0")
+label_username.pack(pady=(10, 0))
+
+entry_username = tk.Entry(root)
+entry_username.pack(pady=5)
+
+label_password = tk.Label(root, text="Пароль:", bg="#f0f0f0")
+label_password.pack(pady=(10, 0))
+
+entry_password = tk.Entry(root, show="*")
+entry_password.pack(pady=5)
+
+label_about = tk.Label(root, text="О себе:", bg="#f0f0f0")
+label_about.pack(pady=(10, 0))
+
+text_about = tk.Text(root, height=5, width=25)
+text_about.pack(pady=5)
+
+# Переключатели пола
+gender_var = tk.StringVar(value="male")
+label_gender = tk.Label(root, text="Пол:", bg="#f0f0f0")
+label_gender.pack(pady=(10, 0))
+
+frame_gender = tk.Frame(root, bg="#f0f0f0")
+frame_gender.pack()
+
+tk.Radiobutton(frame_gender, text="Мужской", variable=gender_var, 
+               value="male", bg="#f0f0f0").pack(side=tk.LEFT)
+tk.Radiobutton(frame_gender, text="Женский", variable=gender_var, 
+               value="female", bg="#f0f0f0").pack(side=tk.LEFT, padx=10)
+
+# Выбор материка
+label_continent = tk.Label(root, text="Материк:", bg="#f0f0f0")
+label_continent.pack(pady=(10, 0))
+
+continents = ["Африка", "Антарктида", "Азия", "Европа", "Северная Америка", "Южная Америка"]
+combo_continent = ttk.Combobox(root, values=continents, state="readonly")
+combo_continent.current(0)
+combo_continent.pack(pady=5)
+
+button_register = tk.Button(root, text="Зарегистрироваться", command=register, bg="#4CAF50", fg="white")
+button_register.pack(pady=20)
+
+root.mainloop()
+
+5.3
+import tkinter as tk
+from tkinter import ttk
+
+def update_label():
+    values = [
+        str_var.get(),
+        str(int_var.get()),
+        str(bool_var.get()),
+        str(radio_var.get())
+    ]
+    label_result.config(text=", ".join(values))
+
+root = tk.Tk()
+root.title("Связь с переменными")
+
+# Создаем переменные
+str_var = tk.StringVar(value="Пример текста")
+int_var = tk.IntVar(value=42)
+bool_var = tk.BooleanVar(value=True)
+radio_var = tk.StringVar(value="Вариант 1")
+
+# Виджеты, связанные с переменными
+entry = tk.Entry(root, textvariable=str_var)
+entry.pack(pady=10)
+
+spinbox = tk.Spinbox(root, from_=0, to=100, textvariable=int_var)
+spinbox.pack(pady=10)
+
+checkbox = tk.Checkbutton(root, text="Флажок", variable=bool_var)
+checkbox.pack(pady=10)
+
+frame_radio = tk.Frame(root)
+frame_radio.pack(pady=10)
+
+tk.Radiobutton(frame_radio, text="Вариант 1", variable=radio_var, value="Вариант 1").pack(side=tk.LEFT)
+tk.Radiobutton(frame_radio, text="Вариант 2", variable=radio_var, value="Вариант 2").pack(side=tk.LEFT, padx=10)
+
+# Кнопка для обновления метки
+button = tk.Button(root, text="Обновить", command=update_label)
+button.pack(pady=10)
+
+# Метка для отображения значений
+label_result = tk.Label(root, text="")
+label_result.pack(pady=10)
+
+root.mainloop()
+
+5.4
+import tkinter as tk
+
+def set_color(color):
+    root.config(bg=color)
+
+def set_size(size):
+    root.geometry(size)
+
+root = tk.Tk()
+root.title("Приложение с меню")
+root.geometry("400x300")
+
+# Создаем главное меню
+menubar = tk.Menu(root)
+
+# Меню Color
+color_menu = tk.Menu(menubar, tearoff=0)
+color_menu.add_command(label="Red", command=lambda: set_color("red"), accelerator="Ctrl+R")
+color_menu.add_command(label="Green", command=lambda: set_color("green"), accelerator="Ctrl+G")
+color_menu.add_command(label="Blue", command=lambda: set_color("blue"), accelerator="Ctrl+B")
+menubar.add_cascade(label="Color", menu=color_menu)
+
+# Меню Size
+size_menu = tk.Menu(menubar, tearoff=0)
+size_menu.add_command(label="500x500", command=lambda: set_size("500x500"), accelerator="Ctrl+1")
+size_menu.add_command(label="700x400", command=lambda: set_size("700x400"), accelerator="Ctrl+2")
+menubar.add_cascade(label="Size", menu=size_menu)
+
+# Привязка горячих клавиш
+root.bind("<Control-r>", lambda e: set_color("red"))
+root.bind("<Control-g>", lambda e: set_color("green"))
+root.bind("<Control-b>", lambda e: set_color("blue"))
+root.bind("<Control-1>", lambda e: set_size("500x500"))
+root.bind("<Control-2>", lambda e: set_size("700x400"))
+
+# Устанавливаем меню в окно
+root.config(menu=menubar)
+
+root.mainloop()
