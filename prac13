@@ -1,0 +1,289 @@
+5.1
+import xml.etree.ElementTree as ET
+
+def xml_operations():
+    # Создание XML-файла (если не существует)
+    try:
+        tree = ET.parse('data.xml')
+        root = tree.getroot()
+    except FileNotFoundError:
+        root = ET.Element("data")
+        tree = ET.ElementTree(root)
+    
+    # Добавление/изменение данных
+    while True:
+        print("\n1. Добавить запись")
+        print("2. Просмотреть все записи")
+        print("3. Найти запись")
+        print("4. Удалить запись")
+        print("5. Выход и сохранение")
+        choice = input("Выберите действие: ")
+        
+        if choice == '1':
+            name = input("Введите имя: ")
+            age = input("Введите возраст: ")
+            city = input("Введите город: ")
+            
+            person = ET.SubElement(root, "person")
+            ET.SubElement(person, "name").text = name
+            ET.SubElement(person, "age").text = age
+            ET.SubElement(person, "city").text = city
+            
+        elif choice == '2':
+            for person in root.findall('person'):
+                print("\nИмя:", person.find('name').text)
+                print("Возраст:", person.find('age').text)
+                print("Город:", person.find('city').text)
+                
+        elif choice == '3':
+            search_name = input("Введите имя для поиска: ")
+            for person in root.findall('person'):
+                if person.find('name').text == search_name:
+                    print("\nИмя:", person.find('name').text)
+                    print("Возраст:", person.find('age').text)
+                    print("Город:", person.find('city').text)
+                    break
+            else:
+                print("Запись не найдена.")
+                
+        elif choice == '4':
+            del_name = input("Введите имя для удаления: ")
+            for person in root.findall('person'):
+                if person.find('name').text == del_name:
+                    root.remove(person)
+                    print("Запись удалена.")
+                    break
+            else:
+                print("Запись не найдена.")
+                
+        elif choice == '5':
+            tree.write('data.xml', encoding='utf-8', xml_declaration=True)
+            print("Данные сохранены в data.xml")
+            break
+            
+        else:
+            print("Неверный ввод. Попробуйте снова.")
+
+if __name__ == "__main__":
+    xml_operations()
+
+5.2
+import wave
+import struct
+import math
+
+def wav_operations():
+    print("\n1. Создать новый WAV-файл")
+    print("2. Модифицировать существующий WAV-файл")
+    choice = input("Выберите действие: ")
+    
+    if choice == '1':
+        # Создание нового WAV-файла
+        duration = float(input("Длительность звука (сек): "))
+        frequency = float(input("Частота (Гц): "))
+        volume = float(input("Громкость (0-1): "))
+        sample_rate = 44100
+        num_samples = int(sample_rate * duration)
+        
+        with wave.open('output.wav', 'w') as wav_file:
+            wav_file.setnchannels(1)  # моно
+            wav_file.setsampwidth(2)  # 2 байта на сэмпл
+            wav_file.setframerate(sample_rate)
+            
+            for i in range(num_samples):
+                # Генерация синусоидального сигнала
+                value = int(32767 * volume * math.sin(2 * math.pi * frequency * i / sample_rate))
+                data = struct.pack('<h', value)
+                wav_file.writeframes(data)
+                
+        print("Файл output.wav создан.")
+        
+    elif choice == '2':
+        # Модификация существующего WAV-файла
+        filename = input("Введите имя WAV-файла: ")
+        try:
+            with wave.open(filename, 'rb') as wav_file:
+                params = wav_file.getparams()
+                frames = wav_file.readframes(params.nframes)
+                
+                print("\nТекущие параметры:")
+                print(f"Каналы: {params.nchannels}")
+                print(f"Ширина сэмпла: {params.sampwidth} байт")
+                print(f"Частота дискретизации: {params.framerate} Гц")
+                print(f"Количество кадров: {params.nframes}")
+                
+                # Демонстрация - изменяем громкость
+                factor = float(input("\nВведите множитель громкости (например 0.5 для уменьшения в 2 раза): "))
+                
+                # Преобразование байтов в числа
+                samples = struct.unpack(f'<{params.nframes * params.nchannels}h', frames)
+                
+                # Применение множителя громкости
+                modified_samples = [int(sample * factor) for sample in samples]
+                
+                # Преобразование обратно в байты
+                modified_frames = struct.pack(f'<{len(modified_samples)}h', *modified_samples)
+                
+                # Сохранение измененного файла
+                with wave.open('modified_' + filename, 'wb') as new_wav:
+                    new_wav.setparams(params)
+                    new_wav.writeframes(modified_frames)
+                    
+                print(f"Файл modified_{filename} создан.")
+                
+        except FileNotFoundError:
+            print("Файл не найден.")
+            
+if __name__ == "__main__":
+    wav_operations()
+
+5.3
+import sqlite3
+from sqlite3 import Error
+
+def create_connection(db_file):
+    """ Создать соединение с SQLite базой данных """
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+        return conn
+    except Error as e:
+        print(e)
+    return conn
+
+def create_table(conn):
+    """ Создать таблицу если не существует """
+    try:
+        cursor = conn.cursor()
+        cursor.execute("""
+        CREATE TABLE IF NOT EXISTS employees (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            position TEXT,
+            salary REAL,
+            hire_date TEXT
+        );
+        """)
+        conn.commit()
+    except Error as e:
+        print(e)
+
+def sqlite_operations():
+    database = "company.db"
+    
+    # Создать соединение с базой данных
+    conn = create_connection(database)
+    if conn is not None:
+        create_table(conn)
+    else:
+        print("Ошибка! Не удалось подключиться к базе данных.")
+        return
+    
+    while True:
+        print("\n1. Добавить сотрудника")
+        print("2. Просмотреть всех сотрудников")
+        print("3. Найти сотрудника по имени")
+        print("4. Обновить данные сотрудника")
+        print("5. Удалить сотрудника")
+        print("6. Выход")
+        choice = input("Выберите действие: ")
+        
+        if choice == '1':
+            name = input("Имя: ")
+            position = input("Должность: ")
+            salary = float(input("Зарплата: "))
+            hire_date = input("Дата приема (YYYY-MM-DD): ")
+            
+            try:
+                cursor = conn.cursor()
+                cursor.execute("""
+                INSERT INTO employees (name, position, salary, hire_date)
+                VALUES (?, ?, ?, ?)
+                """, (name, position, salary, hire_date))
+                conn.commit()
+                print("Сотрудник добавлен.")
+            except Error as e:
+                print(e)
+                
+        elif choice == '2':
+            try:
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM employees")
+                rows = cursor.fetchall()
+                
+                if not rows:
+                    print("Нет данных о сотрудниках.")
+                else:
+                    print("\nСписок сотрудников:")
+                    for row in rows:
+                        print(f"ID: {row[0]}, Имя: {row[1]}, Должность: {row[2]}, Зарплата: {row[3]}, Дата приема: {row[4]}")
+            except Error as e:
+                print(e)
+                
+        elif choice == '3':
+            search_name = input("Введите имя для поиска: ")
+            try:
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM employees WHERE name LIKE ?", ('%'+search_name+'%',))
+                rows = cursor.fetchall()
+                
+                if not rows:
+                    print("Сотрудники не найдены.")
+                else:
+                    print("\nРезультаты поиска:")
+                    for row in rows:
+                        print(f"ID: {row[0]}, Имя: {row[1]}, Должность: {row[2]}, Зарплата: {row[3]}, Дата приема: {row[4]}")
+            except Error as e:
+                print(e)
+                
+        elif choice == '4':
+            emp_id = input("Введите ID сотрудника для обновления: ")
+            try:
+                cursor = conn.cursor()
+                cursor.execute("SELECT * FROM employees WHERE id = ?", (emp_id,))
+                row = cursor.fetchone()
+                
+                if row is None:
+                    print("Сотрудник не найден.")
+                else:
+                    print(f"\nТекущие данные: Имя: {row[1]}, Должность: {row[2]}, Зарплата: {row[3]}, Дата приема: {row[4]}")
+                    
+                    name = input(f"Новое имя [{row[1]}]: ") or row[1]
+                    position = input(f"Новая должность [{row[2]}]: ") or row[2]
+                    salary = input(f"Новая зарплата [{row[3]}]: ") or row[3]
+                    hire_date = input(f"Новая дата приема [{row[4]}]: ") or row[4]
+                    
+                    cursor.execute("""
+                    UPDATE employees
+                    SET name = ?, position = ?, salary = ?, hire_date = ?
+                    WHERE id = ?
+                    """, (name, position, salary, hire_date, emp_id))
+                    conn.commit()
+                    print("Данные обновлены.")
+            except Error as e:
+                print(e)
+                
+        elif choice == '5':
+            emp_id = input("Введите ID сотрудника для удаления: ")
+            try:
+                cursor = conn.cursor()
+                cursor.execute("DELETE FROM employees WHERE id = ?", (emp_id,))
+                conn.commit()
+                
+                if cursor.rowcount == 0:
+                    print("Сотрудник не найден.")
+                else:
+                    print("Сотрудник удален.")
+            except Error as e:
+                print(e)
+                
+        elif choice == '6':
+            conn.close()
+            print("Соединение с базой данных закрыто.")
+            break
+            
+        else:
+            print("Неверный ввод. Попробуйте снова.")
+
+if __name__ == "__main__":
+    sqlite_operations()
